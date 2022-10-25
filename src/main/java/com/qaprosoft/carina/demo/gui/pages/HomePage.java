@@ -21,6 +21,7 @@ import java.util.List;
 import com.qaprosoft.carina.core.foundation.utils.Configuration;
 import com.qaprosoft.carina.core.foundation.utils.R;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,10 +44,21 @@ public class HomePage extends AbstractPage {
     @FindBy(className = "news-column-index")
     private ExtendedWebElement newsColumn;
 
+    @FindBy(xpath = "//i[@class='head-icon icon-user-plus']")
+    private ExtendedWebElement signUpButton;
+
+
+
+
     public HomePage(WebDriver driver) {
         super(driver);
         setUiLoadedMarker(newsColumn);
         setPageAbsoluteURL(R.CONFIG.get(Configuration.Parameter.URL.getKey()));
+    }
+
+    public SignupPage getSignUpPage(){
+        signUpButton.click();
+        return new SignupPage(driver);
     }
 
     public FooterMenu getFooterMenu() {

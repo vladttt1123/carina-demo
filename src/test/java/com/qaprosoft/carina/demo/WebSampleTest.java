@@ -17,6 +17,7 @@ package com.qaprosoft.carina.demo;
 
 import java.util.List;
 
+import com.qaprosoft.carina.demo.gui.pages.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
@@ -32,11 +33,8 @@ import com.qaprosoft.carina.demo.gui.components.FooterMenu;
 import com.qaprosoft.carina.demo.gui.components.NewsItem;
 import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs;
 import com.qaprosoft.carina.demo.gui.components.compare.ModelSpecs.SpecType;
-import com.qaprosoft.carina.demo.gui.pages.BrandModelsPage;
-import com.qaprosoft.carina.demo.gui.pages.CompareModelsPage;
-import com.qaprosoft.carina.demo.gui.pages.HomePage;
-import com.qaprosoft.carina.demo.gui.pages.ModelInfoPage;
-import com.qaprosoft.carina.demo.gui.pages.NewsPage;
+
+import static org.testng.Assert.assertTrue;
 
 /**
  * This sample shows how create Web test.
@@ -44,6 +42,23 @@ import com.qaprosoft.carina.demo.gui.pages.NewsPage;
  * @author qpsdemo
  */
 public class WebSampleTest implements IAbstractTest {
+
+    @Test
+    public void testRegistration(){
+        HomePage homePage = new HomePage(getDriver());
+        homePage.open();
+        SignupPage signupPage =  homePage.getSignUpPage();
+        signupPage.setNickname("ZZZZTest123897");
+        signupPage.setEmail("te534534st3234234@gmail.com");
+        signupPage.setPass("Aa1234561!");
+        signupPage.agreeToTerms();
+        signupPage.clickSubmit();
+        assertTrue(signupPage.getRegistrationResult().contains("Your account was created."),
+                "your registration has not been successful");
+
+    }
+
+
     @Test()
     @MethodOwner(owner = "qpsdemo")
     @TestPriority(Priority.P3)
@@ -52,7 +67,7 @@ public class WebSampleTest implements IAbstractTest {
         // Open GSM Arena home page and verify page is opened
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
+        assertTrue(homePage.isPageOpened(), "Home page is not opened");
         
         //Closing advertising if it's displayed
         homePage.getWeValuePrivacyAd().closeAdIfPresent();
@@ -80,10 +95,10 @@ public class WebSampleTest implements IAbstractTest {
         // Open GSM Arena home page and verify page is opened
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened");
+        assertTrue(homePage.isPageOpened(), "Home page is not opened");
         // Open model compare page
         FooterMenu footerMenu = homePage.getFooterMenu();
-        Assert.assertTrue(footerMenu.isUIObjectPresent(2), "Footer menu wasn't found!");
+        assertTrue(footerMenu.isUIObjectPresent(2), "Footer menu wasn't found!");
         CompareModelsPage comparePage = footerMenu.openComparePage();
         // Compare 3 models
         List<ModelSpecs> specs = comparePage.compareModels("Samsung Galaxy J3", "Samsung Galaxy J5", "Samsung Galaxy J7 Pro");
@@ -101,10 +116,10 @@ public class WebSampleTest implements IAbstractTest {
     public void testNewsSearch() {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
-        Assert.assertTrue(homePage.isPageOpened(), "Home page is not opened!");
+        assertTrue(homePage.isPageOpened(), "Home page is not opened!");
         
         NewsPage newsPage = homePage.getFooterMenu().openNewsPage();
-        Assert.assertTrue(newsPage.isPageOpened(), "News page is not opened!");
+        assertTrue(newsPage.isPageOpened(), "News page is not opened!");
         
         final String searchQ = "iphone";
         List<NewsItem> news = newsPage.searchNews(searchQ);
