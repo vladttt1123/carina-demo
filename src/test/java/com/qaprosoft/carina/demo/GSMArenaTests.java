@@ -7,6 +7,7 @@ import com.qaprosoft.carina.demo.gui.pages.LoginPage;
 import com.qaprosoft.carina.demo.gui.pages.MerchPage;
 import com.qaprosoft.carina.demo.gui.pages.SignupPage;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -15,7 +16,7 @@ import java.lang.invoke.MethodHandles;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class GSMArenaTests implements IAbstractTest {
+public class GSMArenaTests extends LoginDataProvider implements IAbstractTest {
 
     SoftAssert softAssert = new SoftAssert();
 
@@ -26,7 +27,7 @@ public class GSMArenaTests implements IAbstractTest {
     private final String RED_COLOUR = "rgba(213, 0, 0, 1)";
 
 
-    @Test(description = "registration")
+    @Test(suiteName = "registration")
     @MethodOwner(owner = "VladT")
     public void testRegistration(){
         HomePage homePage = new HomePage(getDriver());
@@ -43,21 +44,25 @@ public class GSMArenaTests implements IAbstractTest {
         assertTrue(signupPage.isRegistrationBlockVisible(),
                 "your registration has not been successful");
     }
-    @Test
+    @Test(suiteName = "login", dataProvider = "loginCredentials")
+    /**
+     * please clarify
+     * 5. check info messages on each step of the data provider scenario
+     */
     @MethodOwner(owner = "VladT")
-    public void testLogin(){
+    public void testLogin(String Email, String Password){
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         homePage.clickLoginIcon();
-        homePage.enterEmail(EMAIL);
-        homePage.enterPass(PASSWORD);
+        homePage.enterEmail(Email); //being ta
+        homePage.enterPass(Password);
         LoginPage loginPage =  homePage.clickLoginButton();
 //        assertTrue(loginPage.isLoginSuccessful(),"Login was not successful");
         loginPage.clickUserIcon();
         assertTrue(loginPage.isAccountInfoVisible(),"The login was not successful");
     }
 
-    @Test
+    @Test(suiteName = "elementsVisibility")
     @MethodOwner(owner = "VladT")
     public void testLoginFunctionality(){
         HomePage homePage = new HomePage(getDriver());
@@ -80,7 +85,7 @@ public class GSMArenaTests implements IAbstractTest {
         softAssert.assertAll();
 
     }
-    @Test
+    @Test(suiteName = "elementsVisibility")
     @MethodOwner(owner = "VladT")
     public void checkHeaderFunctionality(){
         HomePage homePage = new HomePage(getDriver());
@@ -132,7 +137,7 @@ public class GSMArenaTests implements IAbstractTest {
         softAssert.assertAll();
     }
 
-    @Test
+    @Test(suiteName = "elementsVisibility")
     @MethodOwner(owner = "VladT")
     public void checkFooterFunctionality() {
         HomePage homePage = new HomePage(getDriver());
