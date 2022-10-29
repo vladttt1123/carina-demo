@@ -3,12 +3,7 @@ package com.qaprosoft.carina.demo.gui.pages;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.invoke.MethodHandles;
 
 public class SignupPage extends AbstractPage {
 
@@ -21,7 +16,7 @@ public class SignupPage extends AbstractPage {
     @FindBy(xpath = "//input[@id='uname']")
     private ExtendedWebElement nickname;
 
-    @FindBy(xpath = "(//*[@id=\"email\"])[2]")
+    @FindBy(xpath = "(//*[@id='email'])[2]")
     private ExtendedWebElement email;
 
     @FindBy(xpath = "(//input[@id='upass'])[2]")
@@ -39,6 +34,9 @@ public class SignupPage extends AbstractPage {
 
     @FindBy(xpath = "//div[@class='normal-text res-success']")
     private ExtendedWebElement resultRegistrationText;
+
+    @FindBy(xpath = "//div[@class='normal-text res-success']")
+    private ExtendedWebElement resultRegistrationBlock;
 
 
 
@@ -71,6 +69,10 @@ public class SignupPage extends AbstractPage {
 
     public String getRegistrationResult(){
         return resultRegistrationText.getText();
+    }
+
+    public boolean isRegistrationBlockVisible(){
+       return resultRegistrationBlock.isVisible();
     }
 
 
