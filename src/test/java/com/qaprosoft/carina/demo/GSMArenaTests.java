@@ -50,12 +50,12 @@ public class GSMArenaTests extends LoginDataProvider implements IAbstractTest {
      * 5. check info messages on each step of the data provider scenario
      */
     @MethodOwner(owner = "VladT")
-    public void testLogin(String Email, String Password){
+    public void testLogin(String email, String password){
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         homePage.clickLoginIcon();
-        homePage.enterEmail(Email); //being ta
-        homePage.enterPass(Password);
+        homePage.enterEmail(email); //being ta
+        homePage.enterPass(password);
         LoginPage loginPage =  homePage.clickLoginButton();
 //        assertTrue(loginPage.isLoginSuccessful(),"Login was not successful");
         loginPage.clickUserIcon();
