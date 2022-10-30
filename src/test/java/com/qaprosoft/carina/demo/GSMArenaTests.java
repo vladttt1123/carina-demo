@@ -83,6 +83,7 @@ public class GSMArenaTests extends LoginDataProvider implements IAbstractTest {
 
         assertEquals(homePage.getColourLoginButton(),RED_COLOUR);
         softAssert.assertAll();
+        //softAssert.assertAll();
 
     }
     @Test(suiteName = "elementsVisibility")
