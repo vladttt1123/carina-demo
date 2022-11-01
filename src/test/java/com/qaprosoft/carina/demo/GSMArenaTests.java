@@ -68,6 +68,7 @@ public class GSMArenaTests extends LoginDataProvider implements IAbstractTest {
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         homePage.clickLoginIcon();
+        // need to comsisder if these elements are used just in 1 test or in many tests
         softAssert.assertTrue(homePage.isLoginTextPresent(),"Login Text is not visible");
         softAssert.assertTrue(homePage.getLoginPageText().contains("Login"),"Word Login is not present");
         softAssert.assertTrue(homePage.isEmailFieldVisible(),"email field not visible");
