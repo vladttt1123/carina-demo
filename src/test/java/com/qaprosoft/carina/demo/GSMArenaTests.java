@@ -7,14 +7,12 @@ import com.qaprosoft.carina.demo.gui.pages.LoginPage;
 import com.qaprosoft.carina.demo.gui.pages.MerchPage;
 import com.qaprosoft.carina.demo.gui.pages.SignupPage;
 import org.slf4j.LoggerFactory;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.lang.invoke.MethodHandles;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class GSMArenaTests extends LoginDataProvider implements IAbstractTest {
 
@@ -50,7 +48,7 @@ public class GSMArenaTests extends LoginDataProvider implements IAbstractTest {
      * 5. check info messages on each step of the data provider scenario
      */
     @MethodOwner(owner = "VladT")
-    public void testLogin(String email, String password){
+    public void testUnsucessfulLogin(String email, String password){
         HomePage homePage = new HomePage(getDriver());
         homePage.open();
         homePage.clickLoginIcon();
@@ -59,7 +57,8 @@ public class GSMArenaTests extends LoginDataProvider implements IAbstractTest {
         LoginPage loginPage =  homePage.clickLoginButton();
 //        assertTrue(loginPage.isLoginSuccessful(),"Login was not successful");
         loginPage.clickUserIcon();
-        assertTrue(loginPage.isAccountInfoVisible(),"The login was not successful");
+        assertFalse(loginPage.isAccountInfoVisible(),"The login was not successful");
+//        assertTrue(loginPage.isAccountInfoVisible(),"The login was not successful");
     }
 
     @Test(suiteName = "elementsVisibility")
